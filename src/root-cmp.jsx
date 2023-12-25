@@ -10,9 +10,9 @@ import { AppFooter } from './cmps/AppFooter'
 
 import { HomePage } from './pages/HomePage'
 import { AboutUs } from './pages/AboutUs'
-import { CarIndex } from './pages/CarIndex.jsx'
+import { ToyIndex } from './pages/ToyIndex.jsx'
 import { store } from './store/store'
-import { CarDetails } from './pages/CarDetails.jsx'
+import { ToyDetails } from './pages/ToyDetails.jsx'
 
 
 export function App() {
@@ -26,8 +26,8 @@ export function App() {
                         <Routes>
                             <Route element={<HomePage />} path="/" />
                             <Route element={<AboutUs />} path="/about" />
-                            <Route element={<CarDetails />} path="/car/:carId" />
-                            <Route element={<CarIndex />} path="/car" />
+                            <Route element={<ToyDetails />} path="/toy/:toyId" />
+                            <Route element={<ToyIndex />} path="/toy" />
                         </Routes>
                     </main>
                     <AppFooter />

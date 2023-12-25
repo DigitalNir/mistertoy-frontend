@@ -1,5 +1,5 @@
 
-const STORAGE_KEY = 'carDB'
+const STORAGE_KEY = 'toyDB'
 
 import Axios from 'axios'
 import { utilService } from './util.service.js'
@@ -12,15 +12,15 @@ const axios = Axios.create({
     withCredentials: true
 })
 
-// const BASE_URL = 'http://localhost:3030/api/car/'
-const BASE_URL = 'car/'
+// const BASE_URL = 'http://localhost:3030/api/toy/'
+const BASE_URL = 'toy/'
 
-export const carService = {
+export const toyService = {
     query,
     getById,
     save,
     remove,
-    getEmptyCar,
+    getEmptyToy,
     getDefaultFilter
 }
 
@@ -33,36 +33,39 @@ function query(filterBy = {}) {
     if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
     const regExp = new RegExp(filterBy.txt, 'i')
     return storageService.query(STORAGE_KEY)
-        .then(cars => {
-            return cars.filter(car =>
-                regExp.test(car.vendor) &&
-                car.price <= filterBy.maxPrice
+        .then(toys => {
+            return toys.filter(toy =>
+                regExp.test(toy.name) &&
+                toy.price <= filterBy.maxPrice
             )
         })
 }
 
-function getById(carId) {
-    return storageService.get(STORAGE_KEY, carId)
+function getById(toyId) {
+    return storageService.get(STORAGE_KEY, toyId)
 }
-function remove(carId) {
+function remove(toyId) {
     // return Promise.reject('Not now!')
-    return storageService.remove(STORAGE_KEY, carId)
+    return storageService.remove(STORAGE_KEY, toyId)
 }
-function save(car) {
-    if (car._id) {
-        return storageService.put(STORAGE_KEY, car)
+function save(toy) {
+    if (toy._id) {
+        return storageService.put(STORAGE_KEY, toy)
     } else {
         // when switching to backend - remove the next line
-        car.owner = userService.getLoggedinUser()
-        return storageService.post(STORAGE_KEY, car)
+        toy.owner = userService.getLoggedinUser()
+        return storageService.post(STORAGE_KEY, toy)
     }
 }
 
 
-function getEmptyCar() {
+function getEmptyToy() {
     return {
-        vendor: 'Susita-' + (Date.now() % 1000),
-        price: utilService.getRandomIntInclusive(1000, 9000),
+        name: 'New Toy-' + (Date.now() % 1000),
+        price: utilService.getRandomIntInclusive(10, 100),
+        labels: [],
+        createdAt: Date.now(),
+        inStock: true
     }
 }
 
@@ -75,12 +78,14 @@ function getDefaultFilter() {
 
 
 
+
+
 // real frontend to backend connection
 
 // function query(filterBy = {}) {
 //     // return Promise.resolve([
 //     //     {
-//     //         "vendor": "Puki Car",
+//     //         "vendor": "Puki toy",
 //     //         "speed": 220,
 //     //         "_id": "WepLV",
 //     //         "price": 3466,
@@ -92,7 +97,7 @@ function getDefaultFilter() {
 //     //         }
 //     //     },
 //     //     {
-//     //         "vendor": "Muki Car",
+//     //         "vendor": "Muki toy",
 //     //         "speed": 123,
 //     //         "_id": "wYrey",
 //     //         "price": 4982,
@@ -103,7 +108,7 @@ function getDefaultFilter() {
 //     //         }
 //     //     },
 //     //     {
-//     //         "vendor": "Kiki Car",
+//     //         "vendor": "Kiki toy",
 //     //         "speed": 676,
 //     //         "_id": "em8lL",
 //     //         "price": 8837,
@@ -151,24 +156,24 @@ function getDefaultFilter() {
 //     return httpService.get(BASE_URL, filterBy)
 // }
 
-// function getById(carId) {
-//     return httpService.get(BASE_URL + carId)
+// function getById(toyId) {
+//     return httpService.get(BASE_URL + toyId)
 // }
 
-// function remove(carId) {
-//     return httpService.delete(BASE_URL + carId)
+// function remove(toyId) {
+//     return httpService.delete(BASE_URL + toyId)
 // }
 
-// function save(car) {
-//     if (car._id) {
-//         return httpService.put(BASE_URL, car)
+// function save(toy) {
+//     if (toy._id) {
+//         return httpService.put(BASE_URL, toy)
 //     } else {
-//         return httpService.post(BASE_URL, car)
+//         return httpService.post(BASE_URL, toy)
 //     }
 // }
 
 
-// function getEmptyCar() {
+// function getEmptyToy() {
 //     return {
 //         vendor: 'Susita-' + (Date.now() % 1000),
 //         price: utilService.getRandomIntInclusive(1000, 9000),

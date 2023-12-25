@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 // const { Link } = ReactRouterDOM
-export function CarPreview({ car, onRemoveCar, onEditCar, addToCart }) {
+export function ToyPreview({ car, onRemoveCar, onEditCar, addToCart }) {
 
     return (
         <li className="car-preview" key={car._id}>

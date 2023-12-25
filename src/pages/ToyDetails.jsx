@@ -2,21 +2,21 @@
 // const { useParams, useNavigate, Link } = ReactRouterDOM
 
 import { useState } from "react"
-import { carService } from "../services/car.service.js"
+import { toyService } from "../services/toy.service.js"
 import { showErrorMsg } from "../services/event-bus.service.js"
 import { useNavigate, useParams } from "react-router-dom"
 
-export function CarDetails() {
+export function ToyDetails() {
     const [car, setCar] = useState(null)
-    const { carId } = useParams()
+    const { toyId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         loadCar()
-    }, [carId])
+    }, [toyId])
 
     function loadCar() {
-        carService.getById(carId)
+        toyService.getById(toyId)
             .then((car) => setCar(car))
             .catch((err) => {
                 console.log('Had issues in car details', err)

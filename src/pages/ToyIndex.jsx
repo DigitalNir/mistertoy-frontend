@@ -2,15 +2,15 @@
 // const { useSelector, useDispatch } = ReactRedux
 
 import { useDispatch, useSelector } from 'react-redux'
-import { CarFilter } from '../cmps/CarFilter.jsx'
-import { CarList } from '../cmps/CarList.jsx'
-import { carService } from '../services/car.service.js'
+import { ToyFilter } from '../cmps/ToyFilter.jsx'
+import { ToyList } from '../cmps/ToyList.jsx'
+import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { loadCars, removeCar, removeCarOptimistic, saveCar, setFilterBy } from '../store/actions/car.actions.js'
 import { ADD_CAR_TO_CART } from '../store/reducers/car.reducer.js'
 import { useEffect } from 'react'
 
-export function CarIndex() {
+export function ToyIndex() {
     const dispatch = useDispatch()
     const cars = useSelector(storeState => storeState.carModule.cars)
     const cart = useSelector(storeState => storeState.carModule.shoppingCart)
@@ -36,7 +36,7 @@ export function CarIndex() {
     }
 
     function onAddCar() {
-        const carToSave = carService.getEmptyCar()
+        const carToSave = toyService.getEmptyToy()
         saveCar(carToSave)
             .then((savedCar) => {
                 console.log('savedCar:', savedCar)
@@ -81,11 +81,11 @@ export function CarIndex() {
 
     return (
         <div>
-            <h3>Cars App</h3>
+            <h3>Toys App</h3>
             <main>
-                <button onClick={onAddCar}>Add Car ⛐</button>
-                <CarFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-                {!isLoading && <CarList
+                <button onClick={onAddCar}>Add Toy ⛐</button>
+                <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+                {!isLoading && <ToyList
                     cars={cars}
                     onEditCar={onEditCar}
                     onRemoveCar={onRemoveCar}

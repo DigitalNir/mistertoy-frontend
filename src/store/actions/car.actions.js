@@ -1,4 +1,4 @@
-import { carService } from "../../services/car.service.js"
+import { toyService } from "../../services/toy.service.js"
 import { ADD_CAR, CAR_UNDO, REMOVE_CAR, SET_CARS, SET_FILTER_BY, SET_IS_LOADING, UPDATE_CAR } from "../reducers/car.reducer.js"
 import { store } from "../store.js"
 
@@ -6,7 +6,7 @@ import { store } from "../store.js"
 export function loadCars() {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     const filterBy = store.getState().carModule.filterBy
-    return carService.query(filterBy)
+    return toyService.query(filterBy)
         .then(cars => {
             store.dispatch({ type: SET_CARS, cars })
         })
@@ -23,7 +23,7 @@ export function removeCarOptimistic(carId) {
     store.dispatch({ type: REMOVE_CAR, carId })
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
 
-    return carService.remove(carId)
+    return toyService.remove(carId)
         .catch(err => {
             store.dispatch({ type: CAR_UNDO })
             console.log('car action -> Cannot remove car', err)
@@ -37,7 +37,7 @@ export function removeCarOptimistic(carId) {
 
 export function removeCar(carId) {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-    return carService.remove(carId)
+    return toyService.remove(carId)
         .then(() => {
             store.dispatch({ type: REMOVE_CAR, carId })
         })
@@ -52,7 +52,7 @@ export function removeCar(carId) {
 
 export function saveCar(car) {
     const type = car._id ? UPDATE_CAR : ADD_CAR
-    return carService.save(car)
+    return toyService.save(car)
         .then(carToSave => {
             store.dispatch({ type, car: carToSave })
             return carToSave

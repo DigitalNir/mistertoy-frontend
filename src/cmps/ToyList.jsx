@@ -1,12 +1,12 @@
-import { CarPreview } from "./CarPreview.jsx";
+import { ToyPreview } from "./ToyPreview.jsx";
 import PropTypes from 'prop-types'
 
-export function CarList({ cars, onRemoveCar, onEditCar, addToCart, baba }) {
+export function ToyList({ cars, onRemoveCar, onEditCar, addToCart, baba }) {
 
     return (
         <ul className="car-list">
             {cars.map(car =>
-                <CarPreview
+                <ToyPreview
                     key={car._id}
                     car={car}
                     onRemoveCar={onRemoveCar}
@@ -18,11 +18,11 @@ export function CarList({ cars, onRemoveCar, onEditCar, addToCart, baba }) {
     )
 }
 
-CarList.defaultProps = {
+ToyList.defaultProps = {
     baba: "BABABABAB"
 }
 
-CarList.propTypes = {
+ToyList.propTypes = {
     txt(props, propName, cmpName) {
         // console.log('props:', props)
         // console.log('propName:', propName)

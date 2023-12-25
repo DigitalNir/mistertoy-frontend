@@ -1,4 +1,4 @@
-import { carService } from "../../services/car.service.js"
+import { toyService } from "../../services/toy.service.js"
 
 
 // car
@@ -25,7 +25,7 @@ const initialState = {
     isCartShown: false,
     shoppingCart: [],
     isLoading: false,
-    filterBy: carService.getDefaultFilter()
+    filterBy: toyService.getDefaultFilter()
 }
 
 export function carReducer(state = initialState, action = {}) {
