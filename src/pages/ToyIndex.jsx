@@ -6,62 +6,62 @@ import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-import { loadCars, removeCar, removeCarOptimistic, saveCar, setFilterBy } from '../store/actions/car.actions.js'
-import { ADD_CAR_TO_CART } from '../store/reducers/car.reducer.js'
+import { loadToys, removeToy, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
+import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
 import { useEffect } from 'react'
 
 export function ToyIndex() {
     const dispatch = useDispatch()
-    const cars = useSelector(storeState => storeState.carModule.cars)
-    const cart = useSelector(storeState => storeState.carModule.shoppingCart)
-    const isLoading = useSelector(storeState => storeState.carModule.isLoading)
-    const filterBy = useSelector(storeState => storeState.carModule.filterBy)
+    const toys = useSelector(storeState => storeState.toyModule.toys)
+    const cart = useSelector(storeState => storeState.toyModule.shoppingCart)
+    const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
+    const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
 
     useEffect(() => {
-        loadCars()
+        loadToys()
             .catch(() => {
-                showErrorMsg('Cannot show cars')
+                showErrorMsg('Cannot show toys')
             })
     }, [filterBy])
 
-    function onRemoveCar(carId) {
-        removeCarOptimistic(carId)
+    function onRemoveToy(toyId) {
+        removeToyOptimistic(toyId)
             .then(() => {
-                showSuccessMsg('Car removed')
+                showSuccessMsg('toy removed')
             })
             .catch(err => {
-                console.log('Cannot remove car', err)
-                showErrorMsg('Cannot remove car')
+                console.log('Cannot remove toy', err)
+                showErrorMsg('Cannot remove toy')
             })
     }
 
     function onAddCar() {
-        const carToSave = toyService.getEmptyToy()
-        saveCar(carToSave)
-            .then((savedCar) => {
-                console.log('savedCar:', savedCar)
-                showSuccessMsg(`Car added (vendor: ${savedCar.vendor})`)
-                // dispatch({ type: ADD_CAR, car: savedCar })
+        const toyToSave = toyService.getEmptyToy()
+        saveToy(toyToSave)
+            .then((savedToy) => {
+                console.log('savedToy:', savedToy)
+                showSuccessMsg(`toy added (vendor: ${savedToy.vendor})`)
+                // dispatch({ type: ADD_TOY, toy: savedToy })
             })
             .catch(err => {
-                console.log('Cannot add car', err)
-                showErrorMsg('Cannot add car')
+                console.log('Cannot add toy', err)
+                showErrorMsg('Cannot add toy')
             })
     }
 
-    function onEditCar(car) {
+    function onEditToy(toy) {
         const price = +prompt('New price?')
-        const carToSave = { ...car, price }
+        const toyToSave = { ...toy, price }
 
-        saveCar(carToSave)
-            .then((savedCar) => {
-                // dispatch({ type: UPDATE_CAR, car: savedCar })
-                showSuccessMsg(`Car updated to price: $${savedCar.price}`)
+        saveToy(toyToSave)
+            .then((savedToy) => {
+                // dispatch({ type: UPDATE_TOY, toy: savedToy })
+                showSuccessMsg(`toy updated to price: $${savedToy.price}`)
             })
 
             .catch(err => {
-                console.log('Cannot update car', err)
-                showErrorMsg('Cannot update car')
+                console.log('Cannot update toy', err)
+                showErrorMsg('Cannot update toy')
             })
     }
 
@@ -71,10 +71,10 @@ export function ToyIndex() {
         setFilterBy(filterBy)
     }
 
-    function addToCart(car) {
-        console.log('car:', car)
-        console.log(`Adding ${car.vendor} to Cart`)
-        dispatch({ type: ADD_CAR_TO_CART, car })
+    function addToCart(toy) {
+        console.log('toy:', toy)
+        console.log(`Adding ${toy.vendor} to Cart`)
+        dispatch({ type: ADD_TOY_TO_CART, toy })
         showSuccessMsg('Added to Cart')
     }
 
@@ -86,9 +86,9 @@ export function ToyIndex() {
                 <button onClick={onAddCar}>Add Toy ⛐</button>
                 <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                 {!isLoading && <ToyList
-                    cars={cars}
-                    onEditCar={onEditCar}
-                    onRemoveCar={onRemoveCar}
+                    toys={toys}
+                    onEditToy={onEditToy}
+                    onRemoveToy={onRemoveToy}
                     addToCart={addToCart}
                     txt={'999'}
                     nums={[1, 2, 3]}

@@ -30,7 +30,7 @@ export const toyService = {
 function query(filterBy = {}) {
 
     if (!filterBy.txt) filterBy.txt = ''
-    if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
+    if (!filterBy.maxPrice) filterBy.maxPrice = 1000
     const regExp = new RegExp(filterBy.txt, 'i')
     return storageService.query(STORAGE_KEY)
         .then(toys => {

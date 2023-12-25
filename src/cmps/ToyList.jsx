@@ -1,16 +1,17 @@
 import { ToyPreview } from "./ToyPreview.jsx";
 import PropTypes from 'prop-types'
 
-export function ToyList({ cars, onRemoveCar, onEditCar, addToCart, baba }) {
-
+export function ToyList({ toys, onRemoveToy, onEditToy, addToCart, baba }) {
+    console.log(toys)
+    // if (!toys) return
     return (
-        <ul className="car-list">
-            {cars.map(car =>
+        <ul className="toy-list">
+            {toys.map(toy =>
                 <ToyPreview
-                    key={car._id}
-                    car={car}
-                    onRemoveCar={onRemoveCar}
-                    onEditCar={onEditCar}
+                    key={toy._id}
+                    toy={toy}
+                    onRemoveToy={onRemoveToy}
+                    onEditToy={onEditToy}
                     addToCart={addToCart}
                 />
             )}

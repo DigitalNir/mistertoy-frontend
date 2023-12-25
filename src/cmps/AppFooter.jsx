@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { UserMsg } from './UserMsg.jsx'
 import { ShoppingCart } from './ShoppingCart.jsx'
-import { SET_CART_IS_SHOWN } from '../store/reducers/car.reducer.js'
+import { SET_CART_IS_SHOWN } from '../store/reducers/toy.reducer.js'
 
 export function AppFooter() {
 
     const dispatch = useDispatch()
     // const [isCartShown, setIsCartShown] = useState(false)
-    const isCartShown = useSelector(storeState => storeState.carModule.isCartShown)
+    const isCartShown = useSelector(storeState => storeState.toyModule.isCartShown)
     const count = useSelector(storeState => storeState.userModule.count)
-    const carsCount = useSelector(storeState => storeState.carModule.cars.length)
+    const toysCount = useSelector(storeState => storeState.toyModule.toys?.length)
 
 
     const cart = []
@@ -20,7 +20,7 @@ export function AppFooter() {
     return (
         <footer>
             <h5>
-                Currently {carsCount} cars in the shop
+                Currently {toysCount} toys in the shop
             </h5>
             <p>
                 Coffeerights to all - Count: {count}

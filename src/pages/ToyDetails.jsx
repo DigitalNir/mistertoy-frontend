@@ -1,36 +1,35 @@
 // const { useEffect, useState } = React
 // const { useParams, useNavigate, Link } = ReactRouterDOM
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { toyService } from "../services/toy.service.js"
 import { showErrorMsg } from "../services/event-bus.service.js"
 import { useNavigate, useParams } from "react-router-dom"
 
 export function ToyDetails() {
-    const [car, setCar] = useState(null)
+    const [toy, setToy] = useState(null)
     const { toyId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
-        loadCar()
+        loadToy()
     }, [toyId])
 
-    function loadCar() {
+    function loadToy() {
         toyService.getById(toyId)
-            .then((car) => setCar(car))
+            .then((toy) => setToy(toy))
             .catch((err) => {
-                console.log('Had issues in car details', err)
-                showErrorMsg('Cannot load car')
-                navigate('/car')
+                console.log('Had issues in toy details', err)
+                showErrorMsg('Cannot load toy')
+                navigate('/toy')
             })
     }
 
-    if (!car) return <div>Loading...</div>
+    if (!toy) return <div>Loading...</div>
     return (
-        <section className="car-details">
-            <h1>Car vendor : {car.vendor}</h1>
-            <h5>Price: ${car.price}</h5>
-            <h5>Speed: {car.speed} km/h</h5>
+        <section className="toy-details">
+            <h1>Toy vendor : {toy.name}</h1>
+            <h5>Price: ${toy.price}</h5>
             <p>⛐</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
         </section>
