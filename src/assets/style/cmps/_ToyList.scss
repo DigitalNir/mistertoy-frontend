@@ -1,0 +1,13 @@
+.toy-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background-color: complement($clr1bg);
+        margin: 0.5em;
+    }
+}

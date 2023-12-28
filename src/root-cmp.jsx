@@ -1,13 +1,13 @@
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import './assets/style/main.css'
+// import './assets/style/main.css'
 // const Router = ReactRouterDOM.BrowserRouter
 // const { Route, Routes } = ReactRouterDOM
 // const { Provider } = ReactRedux
 
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
-
+import './assets/style/main.scss'
 import { HomePage } from './pages/HomePage'
 import { AboutUs } from './pages/AboutUs'
 import { ToyIndex } from './pages/ToyIndex.jsx'
@@ -15,9 +15,7 @@ import { store } from './store/store'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { Dashboard } from './pages/Dashboard.jsx'
 
-
 export function App() {
-
     return (
         <Provider store={store}>
             <Router>
@@ -27,7 +25,10 @@ export function App() {
                         <Routes>
                             <Route element={<HomePage />} path="/" />
                             <Route element={<AboutUs />} path="/about" />
-                            <Route element={<ToyDetails />} path="/toy/:toyId" />
+                            <Route
+                                element={<ToyDetails />}
+                                path="/toy/:toyId"
+                            />
                             <Route element={<ToyIndex />} path="/toy" />
                             <Route element={<Dashboard />} path="/dashboard" />
                         </Routes>
@@ -38,5 +39,3 @@ export function App() {
         </Provider>
     )
 }
-
-
